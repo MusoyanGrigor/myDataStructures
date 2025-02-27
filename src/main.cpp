@@ -1,12 +1,11 @@
 #include "vector.h"
 
 int main() {
-
-    my::vector<int> vec(5, 10);
-    my::vector<int> vec2(7, 20);
-
-    vec.swap(vec2);
-    vec.print();
+    my::vector<double> vec2;
+    vec2.push_back(10);
+    vec2.push_back(-1.6);
+    vec2.push_back(-10);
+        vec2.print();
 
     return 0;
 }

@@ -1,3 +1,0 @@
-/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/main.dir
-/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/rebuild_cache.dir
