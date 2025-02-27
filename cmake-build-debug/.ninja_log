@@ -1,0 +1,7 @@
+# ninja log v6
+1	75	1740636473287288099	CMakeFiles/myDataStructures.dir/main.cpp.o.ddi	4da700105d7a97f7
+75	78	1740636473365324208	CMakeFiles/myDataStructures.dir/CXX.dd	14f2545d0c788135
+75	78	1740636473365324208	/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/myDataStructures.dir/CXXModules.json	14f2545d0c788135
+75	78	1740636473365324208	CMakeFiles/myDataStructures.dir/main.cpp.o.modmap	14f2545d0c788135
+78	575	1740636473365324208	CMakeFiles/myDataStructures.dir/main.cpp.o	aa67e58a3a839c79
+575	657	1740636473862433333	myDataStructures	548af7b382006060
