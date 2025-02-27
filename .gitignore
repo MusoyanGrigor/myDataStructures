@@ -1,0 +1,32 @@
+# Build files
+cmake-build-debug/
+.ninja_deps
+.ninja_log
+build.ninja
+
+# CMake files
+CMakeLists.txt.user
+
+# Object and intermediate build files
+*.o
+
+# Precompiled headers
+*.ddi.d
+*.ddi.i
+
+# Executables
+main
+
+# Log files
+*.log
+
+# Swap files
+*.swp
+
+# C++ specific files 
+*.dSYM
+*.idb
+*.pdb
+
+# IDE-specific files
+.idea/
