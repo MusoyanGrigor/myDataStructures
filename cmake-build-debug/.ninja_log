@@ -1,7 +1,16 @@
 # ninja log v6
-1	75	1740636473287288099	CMakeFiles/myDataStructures.dir/main.cpp.o.ddi	4da700105d7a97f7
-75	78	1740636473365324208	CMakeFiles/myDataStructures.dir/CXX.dd	14f2545d0c788135
-75	78	1740636473365324208	/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/myDataStructures.dir/CXXModules.json	14f2545d0c788135
-75	78	1740636473365324208	CMakeFiles/myDataStructures.dir/main.cpp.o.modmap	14f2545d0c788135
-78	575	1740636473365324208	CMakeFiles/myDataStructures.dir/main.cpp.o	aa67e58a3a839c79
-575	657	1740636473862433333	myDataStructures	548af7b382006060
+5	83	1740641379211507528	CMakeFiles/main.dir/src/vector.cpp.o.ddi	b5ad93e47e08df85
+2	89	1740641379208507525	CMakeFiles/main.dir/src/main.cpp.o.ddi	a4cfcdfb0691417f
+89	92	1740641379299331447	CMakeFiles/main.dir/CXX.dd	96899e58fe50156f
+89	92	1740641379299331447	/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/main.dir/CXXModules.json	96899e58fe50156f
+89	92	1740641379299331447	CMakeFiles/main.dir/src/main.cpp.o.modmap	96899e58fe50156f
+89	92	1740641379299331447	CMakeFiles/main.dir/src/vector.cpp.o.modmap	96899e58fe50156f
+92	807	1740641379299948970	CMakeFiles/main.dir/src/vector.cpp.o	4e4535fefe58ac1c
+92	860	1740641379299331447	CMakeFiles/main.dir/src/main.cpp.o	76e386ec24fe0481
+7	178	1740641569223670956	CMakeFiles/main.dir/src/vector.cpp.o.ddi	b5ad93e47e08df85
+178	184	1740641569394671103	CMakeFiles/main.dir/CXX.dd	96899e58fe50156f
+178	184	1740641569394671103	/home/grigor/Projects/CLionProjects/myDataStructures/cmake-build-debug/CMakeFiles/main.dir/CXXModules.json	96899e58fe50156f
+178	184	1740641569394671103	CMakeFiles/main.dir/src/main.cpp.o.modmap	96899e58fe50156f
+178	184	1740641569394671103	CMakeFiles/main.dir/src/vector.cpp.o.modmap	96899e58fe50156f
+185	828	1740641569401671109	CMakeFiles/main.dir/src/vector.cpp.o	4e4535fefe58ac1c
+828	893	1740641570044671662	main	69bd3512f3bb6f70
