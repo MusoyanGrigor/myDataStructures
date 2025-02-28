@@ -9,13 +9,13 @@ namespace my {
         string();
         explicit string(const char *);
         string(const string& other);
+        string(string&& other) noexcept;
         ~string();
 
         string& operator=(const string& str);
 
-        [[nodiscard]] const char* get_data() const {
-            return m_data;
-        }
+        [[nodiscard]] const char* get_data() const { return m_data;}
+        [[nodiscard]] int length() const { return m_length; }
 
     private:
         char *m_data;

@@ -22,6 +22,14 @@ namespace my {
         utils::strcpy(m_data, other.m_data);
     }
 
+    string::string(string&& other) noexcept {
+        this->m_length = other.m_length;
+        this->m_data = other.m_data;
+
+        other.m_length = 0;
+        other.m_data = nullptr;
+    }
+
     string::~string() {
         delete[] m_data;
     }
