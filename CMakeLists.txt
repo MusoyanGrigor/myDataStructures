@@ -13,7 +13,11 @@ foreach(SRC_FILE ${SRC_FILES})
     file(READ ${SRC_FILE} CONTENTS)
     if("${CONTENTS}" MATCHES "int main\\(.*\\)")
 
-        add_executable(${EXEC_NAME} ${SRC_FILE} src/main.cpp)
+        add_executable(${EXEC_NAME} ${SRC_FILE} src/main.cpp
+                include/string.h
+                src/string.cpp
+                include/utils.h
+                src/utils.cpp)
 
         target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
     endif()
