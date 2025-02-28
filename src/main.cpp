@@ -1,8 +1,10 @@
+#include <iostream>
 #include "string.h"
 
 int main() {
-    my::string s1("Hello World");
+    const my::string myString("Hello, World!");
 
+    std::cout << myString << std::endl;
 
     return 0;
 }
