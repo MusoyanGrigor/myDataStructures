@@ -2,10 +2,10 @@
 #include "string.h"
 
 int main() {
-    my::string myString("Hello, World!");
-    my::string myString2(std::move(myString));
 
-    std::cout << myString2.length() << std::endl;
+    const my::string myString2(5,'9');
+
+    std::cout << myString2 << std::endl;
 
     return 0;
 }
