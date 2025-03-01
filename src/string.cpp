@@ -1,8 +1,6 @@
-#include "string.h"
-
 #include <iostream>
+#include "string.h"
 #include "utils.h"
-
 
 namespace my {
     string::string() {

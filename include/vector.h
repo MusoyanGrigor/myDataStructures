@@ -2,9 +2,7 @@
 #define VECTOR_H
 
 #include <iostream>
-#include <vector>
 #include "swap.h"
-
 
 namespace my {
     template<typename T>
@@ -50,7 +48,7 @@ namespace my {
             }
         }
 
-        vector(std::initializer_list<T> init) : m_buffer(new T[init.size() * 2]), m_size(init.size()),m_capacity(init.size() * 2) {
+        vector(std::initializer_list<T> init) : m_buffer(new T[init.size() * 2]), m_size(init.size()),m_capacity(init.size()) {
             for (size_t i = 0; i < m_size; ++i) {
                 m_buffer[i] = init.begin()[i];
             }
