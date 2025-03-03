@@ -36,6 +36,74 @@ namespace my {
             return m_data[index];
         }
 
+        bool operator==(const array &other) const {
+                for (std::size_t i = 0; i < size; i++) {
+                    if (m_data[i] != other.m_data[i]) {
+                        return false;
+                    }
+                }
+
+            return true;
+        }
+
+        bool operator!=(const array &other) const {
+            for (std::size_t i = 0; i < size; i++) {
+                if (m_data[i] != other.m_data[i]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        bool operator>(const array &other) const {
+            for (std::size_t i = 0; i < size; i++) {
+                if (m_data[i] < other.m_data[i]) {
+                    return false;
+                }
+                if (m_data[i] > other.m_data[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool operator<(const array &other) const {
+            for (std::size_t i = 0; i < size; i++) {
+                if (m_data[i] < other.m_data[i]) {
+                    return true;
+                }
+                if (m_data[i] > other.m_data[i]) {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        bool operator>=(const array &other) const {
+            for (std::size_t i = 0; i < size; i++) {
+                if (m_data[i] > other.m_data[i]) {
+                    return true;
+                }
+                if (m_data[i] < other.m_data[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        bool operator<=(const array &other) const {
+            for (std::size_t i = 0; i < size; i++) {
+                if (m_data[i] > other.m_data[i]) {
+                    return false;
+                }
+                if (m_data[i] < other.m_data[i]) {
+                    return true;
+                }
+            }
+            return true;
+        }
+
         T &front() {
             return m_data[0];
         }
