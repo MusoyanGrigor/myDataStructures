@@ -120,10 +120,9 @@ namespace my {
             if (m_size == m_capacity) {
                 reserve(m_capacity * 2);
             }
-            if (m_buffer != nullptr) {
-                m_buffer[m_size++] = std::move(value);
-            }
+            m_buffer[m_size++] = std::move(value);
         }
+
 
         T pop_back() {
             if (m_buffer != nullptr) {

@@ -33,9 +33,8 @@ namespace my {
         this->m_length = other.m_length;
         this->m_data = other.m_data;
 
-        other.m_length = 1;
-        other.m_data = new char[1];
-        other.m_data[0] = '\0';
+        other.m_length = 0;
+        other.m_data = nullptr;
     }
 
     string::string(const size_t count, const char ch) : m_length(count) {
@@ -47,7 +46,6 @@ namespace my {
 
         m_data[count] = '\0';
     }
-
 
     string::~string() {
         delete[] m_data;
@@ -71,9 +69,8 @@ namespace my {
             m_length = other.m_length;
             m_data = other.m_data;
 
-            other.m_data = new char[1];
-            other.m_length = 1;
-            m_data[0] = '\0';
+            other.m_data = nullptr;
+            other.m_length = 0;
         }
         return *this;
     }
@@ -95,7 +92,7 @@ namespace my {
     }
 
     char& string::back() const {
-        if (m_data != nullptr) return m_data[m_length];
+        if (m_data != nullptr) return m_data[m_length - 1];
         throw std::out_of_range("Empty vector.");
     }
 
