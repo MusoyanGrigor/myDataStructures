@@ -228,14 +228,6 @@ namespace my {
             my::swap(m_buffer, other.m_buffer);
         }
 
-        void print(const std::string& sym = "\n" ) {
-            if (m_buffer != nullptr) {
-                for (size_t i = 0; i < m_size; ++i) {
-                    std::cout << m_buffer[i] << sym;
-                }
-            }
-        }
-
     private:
         T *m_buffer;
         size_t m_size;
