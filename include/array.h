@@ -60,6 +60,10 @@ namespace my {
             }
         }
 
+        [[nodiscard]] size_t max_size() const {
+            return m_count;
+        }
+
         [[nodiscard]] bool empty() const {
             return m_count == 0;
         }

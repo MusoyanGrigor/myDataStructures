@@ -9,7 +9,7 @@ int main() {
         std::cout << arr[i] << std::endl;
     }
 
-    std::cout <<"array size: "<<arr.length()<< std::endl;
+    std::cout <<"array size: "<<arr.max_size()<< std::endl;
 
 
     return 0;
