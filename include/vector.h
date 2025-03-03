@@ -227,6 +227,7 @@ namespace my {
             my::swap(m_buffer, other.m_buffer);
         }
 
+
     private:
         T *m_buffer;
         size_t m_size;

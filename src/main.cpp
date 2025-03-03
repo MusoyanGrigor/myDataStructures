@@ -1,16 +1,16 @@
 #include <iostream>
-#include "vector.h"
-#include "string.h"
+#include <array.h>
 
 
 int main() {
-    my::vector<my::string> strVec;
-    const my::string str("Hello World!");
-    strVec.push_back(my::string("asdf"));
+    my::array<int, 3> arr = {1, 2, 3};
 
-    for (int i = 0; i < strVec.size(); i++) {
-        std::cout << strVec[i] << std::endl;
+    for (int i = 0; i < 3; i++) {
+        std::cout << arr[i] << std::endl;
     }
+
+    std::cout <<"array size: "<<arr.length()<< std::endl;
+
 
     return 0;
 }
