@@ -11,8 +11,8 @@ foreach(SRC_FILE ${SRC_FILES})
     get_filename_component(EXEC_NAME ${SRC_FILE} NAME_WE)
 
     file(READ ${SRC_FILE} CONTENTS)
-    if("${CONTENTS}" MATCHES "int main\\(.*\\)")
 
+    if("${CONTENTS}" MATCHES "int main\\(.*\\)")
         add_executable(${EXEC_NAME} ${SRC_FILE} src/main.cpp
                 include/string.h
                 src/string.cpp
@@ -20,7 +20,6 @@ foreach(SRC_FILE ${SRC_FILES})
                 src/utils.cpp
                 include/array.h
                 include/node.h
-                src/node.cpp
                 include/forward_list.h
         )
 
