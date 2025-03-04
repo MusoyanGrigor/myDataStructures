@@ -4,10 +4,10 @@
 template <typename T>
 class Node {
 public:
-    T data;
-    Node* next;
+    T m_data;
+    Node* m_next;
 
-    explicit Node(T value) : data(value), next(nullptr) {}
+    explicit Node(T value) : m_data(value), m_next(nullptr) {}
 };
 
 #endif //NODE_H
