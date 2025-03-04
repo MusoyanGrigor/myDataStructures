@@ -20,7 +20,9 @@ foreach(SRC_FILE ${SRC_FILES})
                 src/utils.cpp
                 include/array.h
                 include/node.h
-                src/node.cpp)
+                src/node.cpp
+                include/forward_list.h
+        )
 
         target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
     endif()
