@@ -21,6 +21,77 @@ namespace my {
             }
         }
 
+        forward_list(std::initializer_list<T> iList) {
+            for (auto it = iList.begin(); it != iList.end(); ++it) {
+                push_front(*it);
+            }
+        }
+
+        forward_list(const forward_list& other) {
+            for (size_t i = 0; i < other.size(); ++i) {
+                push_front(other[i]);
+            }
+        }
+
+        forward_list(forward_list&& other) noexcept {
+            m_head = other.m_head;
+            m_size = other.m_size;
+
+            other.m_head = nullptr;
+            other.m_size = 0;
+        }
+
+        forward_list& operator=(const forward_list& other) {
+            if (this != &other) {
+                clear();
+
+                Node<T>* current = other.m_head;
+                Node<T>** tail = &m_head;
+
+                while (current) {
+                    *tail = new Node<T>(current->m_value);
+                    tail = &((*tail)->m_next);
+                    current = current->m_next;
+                }
+                m_size = other.m_size;
+            }
+            return *this;
+        }
+
+        forward_list& operator=(forward_list&& other) noexcept {
+            if (this != &other) {
+                clear();
+                m_head = other.m_head;
+                m_size = other.m_size;
+
+                other.m_head = nullptr;
+                other.m_size = 0;
+            }
+            return *this;
+        }
+
+        forward_list& operator=(std::initializer_list<T> iList) {
+            if (this != &iList) {
+                clear();
+                Node<T>* current = iList.begin();
+                Node<T>** tail = &m_head;
+
+                while (current) {
+                    *tail = new Node<T>(current->m_value);
+                    tail = &((*tail)->m_next);
+                    current = current->m_next;
+                }
+                m_size = iList.size();
+            }
+            return *this;
+        }
+
+        ~forward_list() {
+            while (m_head) {
+                pop_front();
+            }
+        }
+
         void push_front(T value) {
             auto *new_node = new Node<T>(value); // Create a new node with the given value
             new_node->m_next = m_head; // Set the new node's next to point to the current head
@@ -53,12 +124,6 @@ namespace my {
             --m_size;
         }
 
-        ~forward_list() {
-            while (m_head) {
-                pop_front();
-            }
-        }
-
         T& front() {
             if (!m_head) { // !nullptr is true
                 throw std::out_of_range("Attempted to access front of an empty list");
@@ -77,6 +142,10 @@ namespace my {
         }
 
         [[nodiscard]] size_t size() const {
+            return m_size;
+        }
+
+        [[nodiscard]] size_t max_size() const {
             return m_size;
         }
 
