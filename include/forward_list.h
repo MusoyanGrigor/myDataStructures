@@ -71,17 +71,9 @@ namespace my {
         }
 
         forward_list& operator=(std::initializer_list<T> iList) {
-            if (this != &iList) {
-                clear();
-                Node<T>* current = iList.begin();
-                Node<T>** tail = &m_head;
-
-                while (current) {
-                    *tail = new Node<T>(current->m_value);
-                    tail = &((*tail)->m_next);
-                    current = current->m_next;
-                }
-                m_size = iList.size();
+            clear();
+            for (auto it = iList.begin(); it != iList.end(); ++it) {
+                push_back(*it);
             }
             return *this;
         }
@@ -126,6 +118,13 @@ namespace my {
 
         T& front() {
             if (!m_head) { // !nullptr is true
+                throw std::out_of_range("Attempted to access front of an empty list");
+            }
+            return m_head->m_value;
+        }
+
+        const T& front() const {
+            if (!m_head) {
                 throw std::out_of_range("Attempted to access front of an empty list");
             }
             return m_head->m_value;
