@@ -13,5 +13,6 @@ int main() {
     std::cout << "arr1 <= arr4: " << (arr1 <= arr4 ? "true" : "false") << std::endl;
     std::cout << "arr4 < arr1: " << (arr4 < arr1 ? "true" : "false") << std::endl;
     std::cout << "arr1 == arr5: " << (arr1 == arr5 ? "true" : "false") << std::endl;
+
     return 0;
 }

@@ -18,7 +18,9 @@ foreach(SRC_FILE ${SRC_FILES})
                 src/string.cpp
                 include/utils.h
                 src/utils.cpp
-                include/array.h)
+                include/array.h
+                include/node.h
+                src/node.cpp)
 
         target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
     endif()
