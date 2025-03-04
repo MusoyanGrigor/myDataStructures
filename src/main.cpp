@@ -9,11 +9,7 @@ int main() {
     mylist.push_front(4);
     mylist.push_front(5);
 
-    mylist.pop_front();
-    mylist.pop_front();
-    mylist.pop_front();
-    mylist.pop_front();
-    mylist.pop_front();
+    mylist.clear();
 
     return 0;
 }

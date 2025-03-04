@@ -42,6 +42,12 @@ namespace my {
             }
         }
 
+        void clear() {
+            while (m_head) {
+                pop_front();
+            }
+        }
+
 
     private:
         Node<T> *m_head;
