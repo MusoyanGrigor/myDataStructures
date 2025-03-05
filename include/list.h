@@ -16,6 +16,11 @@ namespace my {
             }
         }
 
+        list(const list<T>& other) {
+            for (size_t i = 0; i < other.size(); ++i) {
+                push_front(other[i]);
+            }
+        }
 
 
 
