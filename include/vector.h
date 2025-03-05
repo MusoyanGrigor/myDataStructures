@@ -33,7 +33,7 @@ namespace my {
             other.m_buffer = nullptr;
         }
 
-        vector(const size_t size, const T &value) : m_buffer(new T[size]), m_size(size), m_capacity(size) {
+        vector(const size_t size, const T& value) : m_buffer(new T[size]), m_size(size), m_capacity(size) {
             // param ctor 1
             for (size_t i = 0; i < m_size; ++i) {
                 m_buffer[i] = value;

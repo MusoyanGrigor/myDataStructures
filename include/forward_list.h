@@ -1,6 +1,7 @@
 #ifndef FORWARD_LIST_H
 #define FORWARD_LIST_H
 
+#include <iostream>
 #include "node.h"
 
 namespace my {
