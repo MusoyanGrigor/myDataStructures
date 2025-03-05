@@ -3,17 +3,16 @@
 
 int main() {
 
-    my::list<int> list1;
-    list1.push_front(1);
-    list1.push_front(2);
-    list1.push_front(3);
-    list1.push_front(4);
+    my::list<int> original (5,10);
+    my::list<int> movedList(std::move(original));
 
-    const size_t size = list1.size();
+
+    const size_t size = movedList.size();
     for (size_t i = 0; i < size; i++) {
-        std::cout<< list1.front() << std::endl;
-        list1.pop_front();
+        std::cout << movedList.front() << std::endl;
+        movedList.pop_front();
     }
+
 
     return 0;
 }
