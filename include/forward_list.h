@@ -50,7 +50,7 @@ namespace my {
                 Node<T>** tail = &m_head;
 
                 while (current) {
-                    *tail = new Node<T>(current->m_value);
+                    *tail = new Node<T>(current->m_data);
                     tail = &((*tail)->m_next);
                     current = current->m_next;
                 }
@@ -121,33 +121,25 @@ namespace my {
             if (!m_head) { // !nullptr is true
                 throw std::out_of_range("Attempted to access front of an empty list");
             }
-            return m_head->m_value;
+            return m_head->m_data;
         }
 
         const T& front() const {
             if (!m_head) {
                 throw std::out_of_range("Attempted to access front of an empty list");
             }
-            return m_head->m_value;
+            return m_head->m_data;
         }
 
         void clear() {
-            while (m_head) {
+            while (!empty()) {
                 pop_front();
             }
         }
 
-        [[nodiscard]] bool empty() const {
-            return m_head == nullptr;
-        }
-
-        [[nodiscard]] size_t size() const {
-            return m_size;
-        }
-
-        [[nodiscard]] size_t max_size() const {
-            return m_size;
-        }
+        [[nodiscard]] bool empty() const { return m_head == nullptr; }
+        [[nodiscard]] size_t size() const { return m_size; }
+        [[nodiscard]] size_t max_size() const { return m_size; }
 
     private:
         Node<T> *m_head;

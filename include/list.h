@@ -10,7 +10,9 @@ namespace my {
     public:
         list() : m_head(nullptr), m_tail(nullptr) {}
 
-        void push_back(const T& value) {
+        ~list() { clear();}
+
+        void push_back(const T &value) {
             Node<T> *newNode = new Node(value);
             if (!m_head) {
                 m_head = m_tail = newNode;
@@ -22,8 +24,8 @@ namespace my {
             m_size++;
         }
 
-        void push_front(const T& value) {
-            Node<T>* newNode = new Node(value);
+        void push_front(const T &value) {
+            Node<T> *newNode = new Node(value);
             if (!m_head) {
                 m_head = m_tail = newNode;
             } else {
@@ -53,6 +55,37 @@ namespace my {
             delete temp;
             m_size--;
         }
+
+
+        T &front() {
+            if (!m_head) throw std::out_of_range("List is empty");
+            return m_head->m_data;
+        }
+
+        const T &front() const {
+            if (!m_head) throw std::out_of_range("List is empty");
+            return m_head->m_data;
+        }
+
+        T &back() {
+            if (!m_tail) throw std::out_of_range("List is empty");
+            return m_tail->m_data;
+        }
+
+        const T &back() const {
+            if (!m_tail) throw std::out_of_range("List is empty");
+            return m_tail->m_data;
+        }
+
+        void clear() {
+            while (!empty()) {
+                pop_front();
+            }
+        }
+
+        [[nodiscard]] size_t size() const { return m_size; }
+        [[nodiscard]] size_t max_size() const { return m_size; }
+        [[nodiscard]] bool empty() const { return m_size == 0; }
 
     private:
         Node<T> *m_head;
