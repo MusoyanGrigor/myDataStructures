@@ -10,6 +10,15 @@ namespace my {
     public:
         list() : m_head(nullptr), m_tail(nullptr) {}
 
+        list(const size_t size, const T& value) {
+            for (size_t i = 0; i < size; ++i) {
+                push_back(value);
+            }
+        }
+
+
+
+
         ~list() { clear();}
 
         void push_back(const T &value) {
