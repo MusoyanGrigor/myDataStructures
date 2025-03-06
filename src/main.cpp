@@ -17,5 +17,8 @@ int main() {
     my_deque.pop_back();
     my_deque.pop_front();
 
+    std::cout<<my_deque.front()<<std::endl;
+    std::cout<<my_deque.back()<<std::endl;
+
     return 0;
 }

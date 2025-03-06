@@ -65,6 +65,20 @@ namespace my {
             m_size--;
         }
 
+        T front() const {
+            if (empty()) {
+                std::cerr << "Deque is empty!\n";
+            }
+            return m_front->m_data;
+        }
+
+        T back() const {
+            if (empty()) {
+                std::cerr << "Deque is empty!\n";
+            }
+            return m_rear->m_data;
+        }
+
     private:
         Node<T>* m_front;
         Node<T> * m_rear;
