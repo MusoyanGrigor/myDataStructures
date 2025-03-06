@@ -2,7 +2,7 @@
 #define DEQUE_H
 
 #include <cstddef>
-#include "deque.h"
+#include <stdexcept>
 #include "node.h"
 
 namespace my {
@@ -13,6 +13,10 @@ namespace my {
 
         [[nodiscard]] bool empty() const {
             return m_size == 0;
+        }
+
+        [[nodiscard]] size_t size() const {
+            return m_size;
         }
 
         void push_front(const T& value) {
@@ -77,6 +81,29 @@ namespace my {
                 std::cerr << "Deque is empty!\n";
             }
             return m_rear->m_data;
+        }
+
+        T& operator[](int index) {
+            Node<T>* current;
+            if (index < m_size / 2) { // Traverse from front if index is in the first half
+                current = m_front;
+                for (int i = 0; i < index; ++i) {
+                    current = current->m_next;
+                }
+            } else { // Traverse from rear if index is in the second half
+                current = m_rear;
+                for (int i = m_size - 1; i > index; --i) {
+                    current = current->m_prev;
+                }
+            }
+            return current->m_data;
+        }
+
+        T& at(int pos) {
+            if (empty() || pos >= m_size) {
+                throw std::out_of_range("Deque index out of range");
+            }
+            return (*this)[pos];
         }
 
     private:

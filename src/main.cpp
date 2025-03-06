@@ -12,13 +12,8 @@ int main() {
     my_deque.push_front(6);
     my_deque.push_front(7);
 
-    my_deque.pop_back();
-    my_deque.pop_front();
-    my_deque.pop_back();
-    my_deque.pop_front();
-
-    std::cout<<my_deque.front()<<std::endl;
-    std::cout<<my_deque.back()<<std::endl;
-
+    for (size_t i = 0; i < my_deque.size(); i++) {
+        std::cout << my_deque[i] << std::endl;
+    }
     return 0;
 }
