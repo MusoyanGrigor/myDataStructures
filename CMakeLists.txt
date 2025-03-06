@@ -22,6 +22,7 @@ foreach(SRC_FILE ${SRC_FILES})
                 include/node.h
                 include/forward_list.h
                 include/list.h
+                include/deque.h
         )
 
         target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
