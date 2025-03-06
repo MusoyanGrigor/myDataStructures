@@ -39,6 +39,32 @@ namespace my {
            m_size++;
         }
 
+        void pop_front() {
+            if (isEmpty()) {
+                std::cerr << "Deque is empty!\n";
+                return;
+            }
+            auto* temp = m_front;
+            m_front = m_front->m_next;
+            if (m_front) m_front->m_prev = nullptr;
+            else m_rear = nullptr;
+            delete temp;
+            m_size--;
+        }
+
+        void pop_back() {
+            if (isEmpty()) {
+                std::cerr << "Deque is empty!\n";
+                return;
+            }
+            auto* temp = m_rear;
+            m_rear = m_rear->m_prev;
+            if (m_rear) m_rear->m_next = nullptr;
+            else m_front = nullptr;
+            delete temp;
+            m_size--;
+        }
+
     private:
         Node<T>* m_front;
         Node<T> * m_rear;

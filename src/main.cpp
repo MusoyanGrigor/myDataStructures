@@ -13,6 +13,10 @@ int main() {
     my_deque.push_front(6);
     my_deque.push_front(7);
 
+    my_deque.pop_back();
+    my_deque.pop_front();
+    my_deque.pop_back();
+    my_deque.pop_front();
 
     return 0;
 }
