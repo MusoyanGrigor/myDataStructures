@@ -11,13 +11,13 @@ namespace my {
     public:
         deque() : m_front(nullptr), m_rear(nullptr) {};
 
-        [[nodiscard]] bool isEmpty() const {
+        [[nodiscard]] bool empty() const {
             return m_size == 0;
         }
 
         void push_front(const T& value) {
             auto* new_node = new Node<T>(value);
-            if (isEmpty()) {
+            if (empty()) {
                 m_front = m_rear = new_node;
             } else {
                 new_node->m_next = m_front;
@@ -29,7 +29,7 @@ namespace my {
 
         void push_back(const T& value) {
             auto* new_node = new Node<T>(value);
-            if (isEmpty()) {
+            if (empty()) {
                 m_rear = m_front = new_node;
             } else {
                 new_node->m_prev = m_rear;
@@ -40,7 +40,7 @@ namespace my {
         }
 
         void pop_front() {
-            if (isEmpty()) {
+            if (empty()) {
                 std::cerr << "Deque is empty!\n";
                 return;
             }
@@ -53,7 +53,7 @@ namespace my {
         }
 
         void pop_back() {
-            if (isEmpty()) {
+            if (empty()) {
                 std::cerr << "Deque is empty!\n";
                 return;
             }

@@ -2,7 +2,6 @@
 #include "deque.h"
 
 int main() {
-
     my::deque<int> my_deque;
 
     my_deque.push_back(1);
