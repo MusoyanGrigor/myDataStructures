@@ -1,5 +1,5 @@
 #include <iostream>
-#include "deque.h"
+#include "../include/deque.h"
 
 int main() {
     my::deque<int> my_deque;
@@ -12,7 +12,7 @@ int main() {
     my_deque.push_front(6);
     my_deque.push_front(7);
 
-    for (size_t i = 0; i < my_deque.size(); i++) {
+    for (int i = 0; i < my_deque.size(); i++) {
         std::cout << my_deque[i] << std::endl;
     }
     return 0;
