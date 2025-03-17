@@ -69,6 +69,13 @@ namespace my {
             return *this;
         }
 
+        explicit vector(const std::vector<T>& other) : m_size(other.size()), m_capacity(other.capacity()) {
+            m_buffer = new T[m_capacity];
+            for (size_t i = 0; i < m_size; ++i) {
+                m_buffer[i] = other[i];
+            }
+        }
+
         ~vector() {
             delete[] m_buffer;
         }
