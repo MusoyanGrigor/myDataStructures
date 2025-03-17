@@ -1,17 +1,12 @@
 #include <iostream>
-#include <vector>
 #include "../include/vector.h"
 
 int main() {
-    std::vector<float> stdVec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    const my::vector<float> myVec(std::move(stdVec));
+    my::vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    for(int i = 0; i < myVec.size(); ++i) {
-        std::cout << myVec[i] << " ";
+    for (const int & it : vec) {
+        std::cout << it << std::endl;
     }
-    std::cout << std::endl;
-
-    std::cout <<"size of stdVec: "<< stdVec.size() << std::endl;
 
     return 0;
 }

@@ -254,6 +254,51 @@ namespace my {
         }
 
 
+        class iterator {
+        public:
+            explicit iterator(T* p) : ptr(p) {}
+
+            T& operator*() { return *ptr; }
+
+            T* operator->() { return ptr; }
+
+            iterator& operator++() {
+                ++ptr;
+                return *this;
+            }
+
+            iterator operator++(int) {
+                iterator temp = *this;
+                ++(*this);
+                return temp;
+            }
+
+            iterator& operator--() {
+                --ptr;
+                return *this;
+            }
+
+            iterator operator--(int) {
+                iterator temp = *this;
+                --(*this);
+                return temp;
+            }
+
+            bool operator==(const iterator& other) const { return ptr == other.ptr; }
+            bool operator!=(const iterator& other) const { return ptr != other.ptr; }
+
+        private:
+            T* ptr;
+        };
+
+        iterator begin() {
+            return iterator(m_buffer);
+        }
+
+        iterator end() {
+            return iterator(m_buffer + m_size);
+        }
+
     private:
         T *m_buffer;
         size_t m_size;
