@@ -70,10 +70,20 @@ namespace my {
         }
 
         explicit vector(const std::vector<T>& other) : m_size(other.size()), m_capacity(other.capacity()) {
+            // copy ctor std::vector -> my::vector
             m_buffer = new T[m_capacity];
             for (size_t i = 0; i < m_size; ++i) {
                 m_buffer[i] = other[i];
             }
+        }
+
+        explicit vector(std::vector<T>&& other) : m_size(other.size()), m_capacity(other.capacity()) {
+            // move ctor std::vector -> my::vector
+            if (m_capacity > 0) {
+                m_buffer = new T[m_capacity];
+                std::move(other.begin(), other.end(), m_buffer);
+            }
+            other.clear(); // Clear original vector
         }
 
         ~vector() {
