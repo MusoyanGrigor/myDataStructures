@@ -3,20 +3,15 @@
 #include "../include/vector.h"
 
 int main() {
-    my::vector<int> myVector;
+    std::vector<float> stdVec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    const my::vector<float> myVec(std::move(stdVec));
 
-    myVector.push_back(1);
-    myVector.push_back(2);
-    myVector.push_back(3);
-    myVector.push_back(4);
-    myVector.push_back(5);
-
-    std::vector<int> stdVector = myVector.toStdVector();
-
-    std::cout << "size of std vector: " <<stdVector.size() << std::endl;
-    for (const int & it : stdVector) {
-        std::cout << it << std::endl;
+    for(int i = 0; i < myVec.size(); ++i) {
+        std::cout << myVec[i] << " ";
     }
+    std::cout << std::endl;
+
+    std::cout <<"size of stdVec: "<< stdVec.size() << std::endl;
 
     return 0;
 }
