@@ -1,19 +1,22 @@
 #include <iostream>
-#include "deque.h"
+#include <vector>
+#include "../include/vector.h"
 
 int main() {
-    my::deque<int> my_deque;
+    my::vector<int> myVector;
 
-    my_deque.push_back(1);
-    my_deque.push_back(2);
-    my_deque.push_back(3);
-    my_deque.push_back(4);
-    my_deque.push_back(5);
-    my_deque.push_front(6);
-    my_deque.push_front(7);
+    myVector.push_back(1);
+    myVector.push_back(2);
+    myVector.push_back(3);
+    myVector.push_back(4);
+    myVector.push_back(5);
 
-    for (size_t i = 0; i < my_deque.size(); i++) {
-        std::cout << my_deque[i] << std::endl;
+    std::vector<int> stdVector = myVector.toStdVector();
+
+    std::cout << "size of std vector: " <<stdVector.size() << std::endl;
+    for (const int & it : stdVector) {
+        std::cout << it << std::endl;
     }
+
     return 0;
 }

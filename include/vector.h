@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "swap.h"
+#include <vector>
 
 namespace my {
     template<typename T>
@@ -225,6 +226,14 @@ namespace my {
             my::swap(m_size, other.m_size);
             my::swap(m_capacity, other.m_capacity);
             my::swap(m_buffer, other.m_buffer);
+        }
+
+        std::vector<T> toStdVector() {
+          std::vector<T> result(m_size);
+          for (size_t i = 0; i < m_size; ++i) {
+              result[i] = m_buffer[i];
+          }
+            return result;
         }
 
 
