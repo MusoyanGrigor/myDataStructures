@@ -228,12 +228,12 @@ namespace my {
             my::swap(m_buffer, other.m_buffer);
         }
 
-        std::vector<T> toStdVector(my::vector<T> &other) {
-          std::vector<T> result(other.size());
-          for (size_t i = 0; i < other.size(); ++i) {
-                    result[i] = other[i];
-              }
-              return result;
+        std::vector<T> toStdVector() {
+          std::vector<T> result(m_size);
+          for (size_t i = 0; i < m_size; ++i) {
+              result[i] = m_buffer[i];
+          }
+            return result;
         }
 
 
