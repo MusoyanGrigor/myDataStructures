@@ -68,6 +68,9 @@ namespace my {
         bool operator<(const iterator& other) const { return m_ptr < other.m_ptr; }
         bool operator>(const iterator& other) const { return m_ptr > other.m_ptr; }
 
+        iterator operator+(size_t n) const { return iterator(m_ptr + n); }
+        iterator operator-(size_t n) const { return iterator(m_ptr - n); }
+
     private:
         T* m_ptr;
     };
