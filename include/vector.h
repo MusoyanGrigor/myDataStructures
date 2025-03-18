@@ -70,6 +70,7 @@ namespace my {
 
         iterator operator+(size_t n) const { return iterator(m_ptr + n); }
         iterator operator-(size_t n) const { return iterator(m_ptr - n); }
+        size_t operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
 
     private:
         T* m_ptr;
