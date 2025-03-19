@@ -2,6 +2,7 @@
 #define DEQUE_H
 
 #include <cstddef>
+#include <iostream>
 #include <stdexcept>
 #include "node.h"
 
