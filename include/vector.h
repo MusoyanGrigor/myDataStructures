@@ -25,7 +25,7 @@ namespace my {
             }
         }
 
-        void move(T* dest, T* src, size_t size) {
+        void move(T* dest, T* src, const size_t size) {
             for (size_t i = 0; i < size; ++i) {
                 dest[i] = std::move(src[i]);
             }
