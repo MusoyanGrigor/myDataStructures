@@ -28,37 +28,43 @@ namespace my {
     };
 
     template<typename T>
-    class DequeIterator {
+    class iterator {
     public:
-        explicit DequeIterator(Node<T>* ptr) : m_ptr(ptr) {}
+        explicit iterator(Node<T>* ptr) : m_ptr(ptr) {}
 
         T& operator*() { return m_ptr->data; }
         T* operator->() { return &m_ptr->data; }
 
-        DequeIterator& operator++() {
+        iterator& operator++() {
             if (m_ptr) m_ptr = m_ptr->next;
             return *this;
         }
 
-        DequeIterator operator++(int) {
-            DequeIterator temp = *this;
+        iterator operator++(int) {
+            iterator temp = *this;
             ++(*this);
             return temp;
         }
 
-        DequeIterator& operator--() {
+        iterator& operator--() {
             if (m_ptr) m_ptr = m_ptr->prev;
             return *this;
         }
 
-        DequeIterator operator--(int) {
-            DequeIterator temp = *this;
+        iterator operator--(int) {
+            iterator temp = *this;
             --(*this);
             return temp;
         }
 
-        bool operator==(const DequeIterator& other) const { return m_ptr == other.m_ptr; }
-        bool operator!=(const DequeIterator& other) const { return m_ptr != other.m_ptr; }
+        bool operator==(const iterator& other) const { return m_ptr == other.m_ptr; }
+        bool operator!=(const iterator& other) const { return m_ptr != other.m_ptr; }
+        bool operator<(const iterator& other) const { return m_ptr < other.m_ptr; }
+        bool operator>(const iterator& other) const { return m_ptr > other.m_ptr; }
+
+        iterator operator+(size_t n) const { return iterator(m_ptr + n); }
+        iterator operator-(size_t n) const { return iterator(m_ptr - n); }
+        size_t operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
 
     private:
         Node<T>* m_ptr;
@@ -232,12 +238,12 @@ namespace my {
             return m_size >= other.m_size;
         }
 
-        DequeIterator<T> begin() {
-            return DequeIterator<T>(m_front);
+        iterator<T> begin() {
+            return iterator<T>(m_front);
         }
 
-        DequeIterator<T> end() {
-            return DequeIterator<T>(nullptr);
+        iterator<T> end() {
+            return iterator<T>(nullptr);
         }
 
     private:
