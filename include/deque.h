@@ -1,7 +1,6 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 
-#include <iostream>
 #include <stdexcept>
 #include <initializer_list>
 
@@ -13,7 +12,7 @@ namespace my {
             return new T[size];
         }
 
-        static void deallocate(T* ptr) {
+        static void deallocate(const T* ptr) {
             delete[] ptr;
         }
     };
@@ -119,7 +118,7 @@ namespace my {
         }
 
         void push_front(const T& value) {
-            Node<T>* new_node = new Node<T>(value);
+            auto* new_node = new Node<T>(value);
             if (empty()) {
                 m_front = m_rear = new_node;
             } else {
@@ -131,7 +130,7 @@ namespace my {
         }
 
         void push_back(const T& value) {
-            Node<T>* new_node = new Node<T>(value);
+            auto* new_node = new Node<T>(value);
             if (empty()) {
                 m_front = m_rear = new_node;
             } else {
