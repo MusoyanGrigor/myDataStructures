@@ -3,36 +3,99 @@
 
 #include <cstddef>
 #include <stdexcept>
-
 #include "node.h"
 
 namespace my {
-    template<typename T>
+    template <typename T>
+    class ListAllocator {
+    public:
+        static T* allocate(std::size_t capacity) {
+            return new T[capacity];
+        }
+
+        static void deallocate(const T* ptr) {
+            delete[] ptr;
+        }
+
+        static void copy(T* dest, const T* src, const size_t size) {
+            for (size_t i = 0; i < size; ++i) {
+                dest[i] = src[i];
+            }
+        }
+
+        static void move(T* dest, T* src,const size_t size) {
+            for (size_t i = 0; i < size; ++i) {
+                dest[i] = std::move(src[i]);
+            }
+        }
+    };
+
+    template <typename T>
+    class iterator {
+    public:
+        explicit iterator(Node<T>* node) : m_current(node) {}
+
+        T& operator*() { return m_current->m_data; }
+        iterator& operator++() {
+            if (m_current) m_current = m_current->m_next;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+        bool operator==(const iterator& other) const { return m_current == other.m_current; }
+        bool operator!=(const iterator& other) const { return m_current != other.m_current; }
+
+    private:
+        Node<T>* m_current;
+    };
+
+    template <typename T, typename Allocator = ListAllocator<T>>
     class list {
     public:
         list() : m_head(nullptr), m_tail(nullptr), m_size(0) {}
 
-        list(const size_t size, const T& value) : m_head(nullptr), m_tail(nullptr), m_size(0) {
-            for (size_t i = 0; i < size; ++i) {
+        list(std::initializer_list<T> init) : list() {
+            for (const T& value : init) {
                 push_back(value);
             }
         }
 
-        list(const list& other) : m_head(nullptr), m_tail(nullptr), m_size(0) {
-            for (size_t i = 0; i < other.size(); ++i) {
-                push_back(other[i]);
+        list(const list& other) : list() {
+            for (Node<T>* curr = other.m_head; curr; curr = curr->m_next) {
+                push_back(curr->m_data);
             }
         }
 
-        list(list&& other) noexcept {
-            this->m_head = other.m_head;
-            this->m_tail = other.m_tail;
-            this->m_size = other.m_size;
-
-
-            other.m_head = nullptr;
-            other.m_tail = nullptr;
+        list(list&& other) noexcept
+            : m_head(other.m_head), m_tail(other.m_tail), m_size(other.m_size) {
+            other.m_head = other.m_tail = nullptr;
             other.m_size = 0;
+        }
+
+        list& operator=(const list& other) {
+            if (this != &other) {
+                clear();
+                for (Node<T>* curr = other.m_head; curr; curr = curr->m_next) {
+                    push_back(curr->m_data);
+                }
+            }
+            return *this;
+        }
+
+        list& operator=(list&& other) noexcept {
+            if (this != &other) {
+                clear();
+                m_head = other.m_head;
+                m_tail = other.m_tail;
+                m_size = other.m_size;
+
+                other.m_head = other.m_tail = nullptr;
+                other.m_size = 0;
+            }
+            return *this;
         }
 
         ~list() { clear(); }
@@ -49,6 +112,7 @@ namespace my {
             m_size++;
         }
 
+
         void push_front(const T& value) {
             auto* newNode = new Node<T>(value);
             if (!m_head) {
@@ -58,17 +122,17 @@ namespace my {
                 m_head->m_prev = newNode;
                 m_head = newNode;
             }
-            m_size++;
+            ++m_size;
         }
 
         void pop_back() {
             if (!m_tail) return;
-            Node<T>* temp = m_tail;
+            const Node<T>* temp = m_tail;
             m_tail = m_tail->m_prev;
             if (m_tail) m_tail->m_next = nullptr;
             else m_head = nullptr;
             delete temp;
-            m_size--;
+            --m_size;
         }
 
         void pop_front() {
@@ -78,7 +142,7 @@ namespace my {
             if (m_head) m_head->m_prev = nullptr;
             else m_tail = nullptr;
             delete temp;
-            m_size--;
+            --m_size;
         }
 
         T& front() {
@@ -108,8 +172,10 @@ namespace my {
         }
 
         [[nodiscard]] size_t size() const { return m_size; }
-        [[nodiscard]]  size_t max_size() const {return m_size; }
         [[nodiscard]] bool empty() const { return m_size == 0; }
+
+        iterator<T> begin() { return iterator<T>(m_head); }
+        iterator<T> end() { return iterator<T>(nullptr); }
 
     private:
         Node<T>* m_head;
