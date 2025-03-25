@@ -2,6 +2,8 @@
 #define LIST_H
 
 #include <cstddef>
+#include <stdexcept>
+
 #include "node.h"
 
 namespace my {
