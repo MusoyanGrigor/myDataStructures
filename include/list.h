@@ -6,10 +6,11 @@
 #include "node.h"
 
 namespace my {
+
     template <typename T>
     class ListAllocator {
     public:
-        static T* allocate(std::size_t capacity) {
+        static T* allocate(const std::size_t capacity) {
             return new T[capacity];
         }
 
@@ -17,16 +18,12 @@ namespace my {
             delete[] ptr;
         }
 
-        static void copy(T* dest, const T* src, const size_t size) {
-            for (size_t i = 0; i < size; ++i) {
-                dest[i] = src[i];
-            }
+        static Node<T>* allocateNode(const T& value) {
+            return new Node<T>(value);
         }
 
-        static void move(T* dest, T* src,const size_t size) {
-            for (size_t i = 0; i < size; ++i) {
-                dest[i] = std::move(src[i]);
-            }
+        static void deallocateNode(const Node<T>* node) {
+            delete node;
         }
     };
 
@@ -101,7 +98,7 @@ namespace my {
         ~list() { clear(); }
 
         void push_back(const T& value) {
-            auto* newNode = new Node<T>(value);
+            auto* newNode = Allocator::allocateNode(value);
             if (!m_head) {
                 m_head = m_tail = newNode;
             } else {
@@ -112,9 +109,8 @@ namespace my {
             m_size++;
         }
 
-
         void push_front(const T& value) {
-            auto* newNode = new Node<T>(value);
+            auto* newNode = Allocator::allocateNode(value);
             if (!m_head) {
                 m_head = m_tail = newNode;
             } else {
@@ -127,11 +123,11 @@ namespace my {
 
         void pop_back() {
             if (!m_tail) return;
-            const Node<T>* temp = m_tail;
+            Node<T>* temp = m_tail;
             m_tail = m_tail->m_prev;
             if (m_tail) m_tail->m_next = nullptr;
             else m_head = nullptr;
-            delete temp;
+            Allocator::deallocateNode(temp);
             --m_size;
         }
 
@@ -141,7 +137,7 @@ namespace my {
             m_head = m_head->m_next;
             if (m_head) m_head->m_prev = nullptr;
             else m_tail = nullptr;
-            delete temp;
+            Allocator::deallocateNode(temp);
             --m_size;
         }
 
@@ -182,6 +178,7 @@ namespace my {
         Node<T>* m_tail;
         size_t m_size;
     };
+
 }
 
 #endif // LIST_H

@@ -1,43 +1,71 @@
 #ifndef FORWARD_LIST_H
 #define FORWARD_LIST_H
 
-#include <iostream>
+#include <cstddef>
+#include <initializer_list>
+#include <stdexcept>
 #include "node.h"
 
 namespace my {
-    template<typename T>
-    class forward_list {
-    public:
-        forward_list() : m_head(nullptr) {};
 
-        explicit forward_list(const size_t size) {
-            for (size_t i = 0; i < size; ++i) {
-                push_front(0);
-            }
+    template <typename T>
+    class ForwardListAllocator {
+    public:
+        static T* allocate(const std::size_t capacity) {
+            return new T[capacity];
         }
 
-        explicit forward_list(const size_t size, const T& value) {
-            for (size_t i = 0; i < size; ++i) {
+        static void deallocate(const T* ptr) {
+            delete[] ptr;
+        }
+    };
+
+    template <typename T>
+    class iterator {
+    public:
+        explicit iterator(Node<T>* node) : m_current(node) {}
+
+        T& operator*() { return m_current->m_data; }
+        iterator& operator++() {
+            if (m_current) m_current = m_current->m_next;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+        bool operator==(const iterator& other) const { return m_current == other.m_current; }
+        bool operator!=(const iterator& other) const { return m_current != other.m_current; }
+
+    private:
+        Node<T>* m_current;
+    };
+
+    template <typename T, typename Allocator = ForwardListAllocator<T>>
+    class forward_list {
+    public:
+        forward_list() : m_head(nullptr), m_size(0) {}
+
+        explicit forward_list(std::size_t size, const T& value = T{}) : forward_list() {
+            for (std::size_t i = 0; i < size; ++i) {
                 push_front(value);
             }
         }
 
-        forward_list(std::initializer_list<T> iList) {
-            for (auto it = iList.begin(); it != iList.end(); ++it) {
-                push_front(*it);
+        forward_list(std::initializer_list<T> init) : forward_list() {
+            for (auto it = init.end(); it != init.begin();) {
+                push_front(*--it);
             }
         }
 
-        forward_list(const forward_list& other) {
-            for (size_t i = 0; i < other.size(); ++i) {
-                push_front(other[i]);
+        forward_list(const forward_list& other) : forward_list() {
+            for (Node<T>* curr = other.m_head; curr; curr = curr->m_next) {
+                push_back(curr->m_data);
             }
         }
 
-        forward_list(forward_list&& other) noexcept {
-            m_head = other.m_head;
-            m_size = other.m_size;
-
+        forward_list(forward_list&& other) noexcept : m_head(other.m_head), m_size(other.m_size) {
             other.m_head = nullptr;
             other.m_size = 0;
         }
@@ -45,16 +73,9 @@ namespace my {
         forward_list& operator=(const forward_list& other) {
             if (this != &other) {
                 clear();
-
-                Node<T>* current = other.m_head;
-                Node<T>** tail = &m_head;
-
-                while (current) {
-                    *tail = new Node<T>(current->m_data);
-                    tail = &((*tail)->m_next);
-                    current = current->m_next;
+                for (Node<T>* curr = other.m_head; curr; curr = curr->m_next) {
+                    push_back(curr->m_data);
                 }
-                m_size = other.m_size;
             }
             return *this;
         }
@@ -64,70 +85,50 @@ namespace my {
                 clear();
                 m_head = other.m_head;
                 m_size = other.m_size;
-
                 other.m_head = nullptr;
                 other.m_size = 0;
             }
             return *this;
         }
 
-        forward_list& operator=(std::initializer_list<T> iList) {
-            clear();
-            for (auto it = iList.begin(); it != iList.end(); ++it) {
-                push_back(*it);
-            }
-            return *this;
-        }
+        ~forward_list() { clear(); }
 
-        ~forward_list() {
-            while (m_head) {
-                pop_front();
-            }
-        }
-
-        void push_front(T value) {
-            auto *new_node = new Node<T>(value); // Create a new node with the given value
-            new_node->m_next = m_head; // Set the new node's next to point to the current head
-            m_head = new_node; // Update the head to point to the new node
+        void push_front(const T& value) {
+            auto* newNode = new Node<T>(value);
+            newNode->m_next = m_head;
+            m_head = newNode;
             ++m_size;
         }
 
-        void push_back(T value) {
-            auto *newNode = new Node<T>(value);
+        void push_back(const T& value) {
+            auto* newNode = new Node<T>(value);
             if (!m_head) {
                 m_head = newNode;
-                ++m_size;
-                return;
+            } else {
+                Node<T>* temp = m_head;
+                while (temp->m_next) {
+                    temp = temp->m_next;
+                }
+                temp->m_next = newNode;
             }
-
-            Node<T> *temp = m_head;
-            while (temp->m_next) {
-                temp = temp->m_next;
-            }
-
-            temp->m_next = newNode;
             ++m_size;
         }
 
         void pop_front() {
             if (!m_head) return;
-            const Node<T> *temp = m_head;
+            Node<T>* temp = m_head;
             m_head = m_head->m_next;
             delete temp;
             --m_size;
         }
 
         T& front() {
-            if (!m_head) { // !nullptr is true
-                throw std::out_of_range("Attempted to access front of an empty list");
-            }
+            if (!m_head) throw std::out_of_range("List is empty");
             return m_head->m_data;
         }
 
         const T& front() const {
-            if (!m_head) {
-                throw std::out_of_range("Attempted to access front of an empty list");
-            }
+            if (!m_head) throw std::out_of_range("List is empty");
             return m_head->m_data;
         }
 
@@ -137,14 +138,17 @@ namespace my {
             }
         }
 
-        [[nodiscard]] bool empty() const { return m_head == nullptr; }
-        [[nodiscard]] size_t size() const { return m_size; }
-        [[nodiscard]] size_t max_size() const { return m_size; }
+        [[nodiscard]] bool empty() const { return m_size == 0; }
+        [[nodiscard]] std::size_t size() const { return m_size; }
+
+        iterator<T> begin() { return iterator<T>(m_head); }
+        iterator<T> end() { return iterator<T>(nullptr); }
 
     private:
-        Node<T> *m_head;
-        size_t m_size = 0;
+        Node<T>* m_head;
+        std::size_t m_size;
     };
+
 }
 
-#endif //FORWARD_LIST_H
+#endif // FORWARD_LIST_H
