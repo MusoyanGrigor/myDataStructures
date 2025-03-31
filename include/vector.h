@@ -6,6 +6,7 @@
 #include <initializer_list>
 #include <algorithm>
 #include <vector>
+#include "iterator.h"
 
 namespace my {
     template<typename T>
@@ -30,50 +31,6 @@ namespace my {
                 dest[i] = std::move(src[i]);
             }
         }
-    };
-
-    template<typename T>
-    class iterator {
-    public:
-        explicit iterator(T* ptr) : m_ptr(ptr) {}
-
-        T& operator*() { return *m_ptr; }
-
-        T* operator->() { return m_ptr; }
-
-        iterator& operator++() {
-            ++m_ptr;
-            return *this;
-        }
-
-        iterator operator++(int) {
-            iterator temp = *this;
-            ++(*this);
-            return temp;
-        }
-
-        iterator& operator--() {
-            --m_ptr;
-            return *this;
-        }
-
-        iterator operator--(int) {
-            iterator temp = *this;
-            --(*this);
-            return temp;
-        }
-
-        bool operator==(const iterator& other) const { return m_ptr == other.m_ptr; }
-        bool operator!=(const iterator& other) const { return m_ptr != other.m_ptr; }
-        bool operator<(const iterator& other) const { return m_ptr < other.m_ptr; }
-        bool operator>(const iterator& other) const { return m_ptr > other.m_ptr; }
-
-        iterator operator+(size_t n) const { return iterator(m_ptr + n); }
-        iterator operator-(size_t n) const { return iterator(m_ptr - n); }
-        size_t operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
-
-    private:
-        T* m_ptr;
     };
 
     template<typename T, typename Allocator = VectorAllocator<T>>
