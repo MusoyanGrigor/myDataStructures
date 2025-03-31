@@ -7,11 +7,14 @@ namespace my {
     template<typename T>
     class iterator {
     public:
+        using reference_type = T&;
+        using pointer_type = T*;
+
         explicit iterator(T* ptr) : m_ptr(ptr) {}
 
-        T& operator*() { return *m_ptr; }
+        reference_type operator*() { return *m_ptr; }
 
-        T* operator->() { return m_ptr; }
+        pointer_type operator->() { return m_ptr; }
 
         iterator& operator++() {
             ++m_ptr;
