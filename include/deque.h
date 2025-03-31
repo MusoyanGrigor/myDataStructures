@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <initializer_list>
+#include "iterator.h"
 
 namespace my {
     template<typename T>
@@ -24,49 +25,6 @@ namespace my {
         Node* next;
 
         explicit Node(const T& value) : data(value), prev(nullptr), next(nullptr) {}
-    };
-
-    template<typename T>
-    class iterator {
-    public:
-        explicit iterator(Node<T>* ptr) : m_ptr(ptr) {}
-
-        T& operator*() { return m_ptr->data; }
-        T* operator->() { return &m_ptr->data; }
-
-        iterator& operator++() {
-            if (m_ptr) m_ptr = m_ptr->next;
-            return *this;
-        }
-
-        iterator operator++(int) {
-            iterator temp = *this;
-            ++(*this);
-            return temp;
-        }
-
-        iterator& operator--() {
-            if (m_ptr) m_ptr = m_ptr->prev;
-            return *this;
-        }
-
-        iterator operator--(int) {
-            iterator temp = *this;
-            --(*this);
-            return temp;
-        }
-
-        bool operator==(const iterator& other) const { return m_ptr == other.m_ptr; }
-        bool operator!=(const iterator& other) const { return m_ptr != other.m_ptr; }
-        bool operator<(const iterator& other) const { return m_ptr < other.m_ptr; }
-        bool operator>(const iterator& other) const { return m_ptr > other.m_ptr; }
-
-        iterator operator+(size_t n) const { return iterator(m_ptr + n); }
-        iterator operator-(size_t n) const { return iterator(m_ptr - n); }
-        size_t operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
-
-    private:
-        Node<T>* m_ptr;
     };
 
     template<typename T, typename Allocator = DequeAllocator<T>>
