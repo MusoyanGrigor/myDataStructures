@@ -1,14 +1,14 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include <iostream>
-
 namespace my {
     template<typename T>
     class iterator {
     public:
         using reference_type = T&;
         using pointer_type = T*;
+        using value_type = T;
+        using difference_type = std::ptrdiff_t;
 
         explicit iterator(T* ptr) : m_ptr(ptr) {}
 
@@ -45,7 +45,8 @@ namespace my {
 
         iterator operator+(size_t n) const { return iterator(m_ptr + n); }
         iterator operator-(size_t n) const { return iterator(m_ptr - n); }
-        size_t operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
+        difference_type operator-(const iterator& other) const { return m_ptr - other.m_ptr; }
+
 
     private:
         T* m_ptr;
