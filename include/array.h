@@ -64,8 +64,6 @@ namespace my {
 
         [[nodiscard]] static size_t size() { return Size; }
         [[nodiscard]] static bool empty() { return Size == 0; }
-        [[nodiscard]] constexpr size_t size() const { return size(); }
-
 
         T &at(std::size_t pos) {
             if (pos >= Size) throw std::out_of_range("Index out of bounds");
