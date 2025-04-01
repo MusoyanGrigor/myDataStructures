@@ -97,13 +97,12 @@ namespace my {
     }
 
     void string::clear() {
-        if (m_data != nullptr) {
-            delete[] m_data;
-            m_data = new char[1];
-            m_length = 1;
-            m_data[0] = '\0';
-        }
+        delete[] m_data;
+        m_data = new char[1];
+        m_data[0] = '\0';
+        m_length = 1;
     }
+
 
     std::ostream& operator<<(std::ostream& os, const string& str) {
         if (str.get_data()) {
