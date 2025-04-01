@@ -56,7 +56,7 @@ namespace my {
             delete[] m_data;
 
             m_length = str.m_length;
-            m_data = new char[m_length + 1];
+            m_data = new char[m_length];
             utils::strcpy(m_data, str.m_data);
         }
 
