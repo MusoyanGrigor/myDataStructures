@@ -24,7 +24,7 @@ namespace my {
 
     string::string(const string& other) : m_length(other.m_length) {
         // copy ctor
-        m_data = new char[m_length + 1];
+        m_data = new char[m_length];
         utils::strcpy(m_data, other.m_data);
     }
 
