@@ -6,8 +6,9 @@ namespace my {
     class pair {
         pair(const pair<T1, T2> &p) : first(p.first), second(p.second) {}
 
+        auto operator<=>(const pair& other) const = default;
 
-      private:
+    private:
         T1 first;
         T2 second;
     };
