@@ -1,15 +1,18 @@
 #include <iostream>
-#include "array.h"
+#include "map.h"
 
 int main() {
-    my::array<int, 10> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    my::map<int,int> mymap;
+    mymap.insert(5,4);
+    mymap.insert(3,3);
+    mymap.insert(2,2);
+    mymap.insert(1,1);
+    mymap.insert(0,0);
+    mymap.insert(4,4);
+    mymap.insert(6,6);
+    mymap.insert(7,7);
 
-    for (const int & it : arr) {
-        std::cout << it << std::endl;
-    }
 
-    const my::iterator<int>::value_type first_value = *arr.begin();
-    std::cout << "First element: " << first_value << std::endl;
 
     return 0;
 }
