@@ -2,14 +2,14 @@
 #define SET_H
 
 #include <iostream>
-#include <vector>
+#include "vector.h"
 #include <algorithm>
 
 namespace my {
 template <typename K>
 class set {
 private:
-    std::vector<K> data;
+    my::vector<K> data;
 
 public:
     void insert(const K& value) {
