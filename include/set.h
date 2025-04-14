@@ -8,9 +8,6 @@
 namespace my {
 template <typename K>
 class set {
-private:
-    my::vector<K> data;
-
 public:
     void insert(const K& value) {
         if (!contains(value)) {
@@ -36,6 +33,9 @@ public:
         }
         std::cout << "\n";
     }
+    private:
+    my::vector<K> data;
+
 };
 
 }
