@@ -27,12 +27,6 @@ public:
         return std::binary_search(data.begin(), data.end(), value);
     }
 
-    void print() const {
-        for (const K& val : data) {
-            std::cout << val << " ";
-        }
-        std::cout << "\n";
-    }
     private:
     my::vector<K> data;
 
