@@ -8,6 +8,7 @@ namespace my {
     template <typename K, typename V>
     class map {
     public:
+
       void insert(const K& key, const V& value) {
         int index = findIndex(key);
         if (index != -1) {
@@ -19,6 +20,22 @@ namespace my {
                m_data.insert(pos, my::pair<K, V>(key, value));
             }
         }
+      }
+
+      bool contains(const K& key) const {
+          return findIndex(key) != -1;
+      }
+
+      std::size_t size() const {
+          return m_data.size();
+      }
+
+      bool empty() const {
+          return m_data.empty();
+      }
+
+      void clear() {
+          m_data.clear();
       }
 
 
