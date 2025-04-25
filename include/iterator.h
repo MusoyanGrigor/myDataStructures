@@ -1,7 +1,7 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include <iterator> // for std::random_access_iterator_tag
+#include <iterator>
 
 namespace my {
     template<typename T>

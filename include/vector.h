@@ -9,6 +9,7 @@
 #include "iterator.h"
 
 namespace my {
+
     template<typename T>
     class VectorAllocator {
     public:
@@ -36,6 +37,9 @@ namespace my {
     template<typename T, typename Allocator = VectorAllocator<T>>
     class vector {
     public:
+        using iterator = my::iterator<T>;
+        using const_iterator = my::iterator<const T>;
+
         vector() : m_size{0}, m_capacity{1}, m_allocator{} {
             m_buffer = m_allocator.allocate(m_capacity);
         }
@@ -249,12 +253,30 @@ namespace my {
             return result;
         }
 
-        iterator<T> begin() {
-            return iterator<T>(m_buffer);
+        iterator insert(iterator pos, const T& value) {
+            size_t index = pos - begin();
+
+            if (m_size == m_capacity) {
+                reserve(m_capacity * 2);
+            }
+
+            for (size_t i = m_size; i > index; --i) {
+                m_buffer[i] = std::move(m_buffer[i - 1]);
+            }
+
+            m_buffer[index] = value;
+            ++m_size;
+
+            return iterator(m_buffer + index);
         }
 
-        iterator<T> end() {
-            return iterator<T>(m_buffer + m_size);
+
+        iterator begin() {
+            return iterator(m_buffer);
+        }
+
+        iterator end() {
+            return iterator(m_buffer + m_size);
         }
 
     private:
@@ -263,6 +285,7 @@ namespace my {
         size_t m_capacity;
         Allocator m_allocator;
     };
+
 }
 
 #endif // VECTOR_H
