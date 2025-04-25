@@ -12,6 +12,12 @@ class set {
 public:
     using iterator = typename my::vector<K>::iterator;
 
+    set(std::initializer_list<K> init) {
+        for (const auto& item : init) {
+            insert(item);
+        }
+    }
+
     void insert(const K& value) {
         auto it = std::lower_bound(data.begin(), data.end(), value);
         if (it == data.end() || *it != value) {
