@@ -2,23 +2,26 @@
 #define SET_H
 
 #include <iostream>
-#include "vector.h"
 #include <algorithm>
+#include "vector.h"
 
 namespace my {
+
 template <typename K>
 class set {
 public:
+    using iterator = typename my::vector<K>::iterator;
+
     void insert(const K& value) {
-        if (!contains(value)) {
-            data.push_back(value);
-            std::sort(data.begin(), data.end());
+        auto it = std::lower_bound(data.begin(), data.end(), value);
+        if (it == data.end() || *it != value) {
+            data.insert(it, value);
         }
     }
 
     void erase(const K& value) {
-        auto it = std::find(data.begin(), data.end(), value);
-        if (it != data.end()) {
+        auto it = std::lower_bound(data.begin(), data.end(), value);
+        if (it != data.end() && *it == value) {
             data.erase(it);
         }
     }
@@ -27,24 +30,22 @@ public:
         return std::binary_search(data.begin(), data.end(), value);
     }
 
-    private:
-    my::vector<K> data;
-
-    int findIndex(const K& key) const {
-        int left = 0;
-        int right = m_data.size() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (m_data[mid].first == key) return mid;
-            if (m_data[mid].first < key)
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-        return -1;
+    std::size_t size() const {
+        return data.size();
     }
+
+    bool empty() const {
+        return data.empty();
+    }
+
+    void clear() {
+        data.clear();
+    }
+
+private:
+    my::vector<K> data;
 };
 
 }
 
-#endif //SET_H
+#endif // SET_H
