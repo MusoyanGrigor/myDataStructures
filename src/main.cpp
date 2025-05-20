@@ -1,13 +1,13 @@
-#include "../include/set.h"
-#include <iostream>
+#include "vector.h"
 
 int main() {
-    my::set<int> s = {4, 3, 1, 2};
-
-    for (int x : s) {
-        std::cout << x << " ";
+    my::vector<int> nums = {-1,2,1,-4};
+    int x = 10;
+    nums.push_back(3);
+    nums.push_back(4);
+    nums.push_back(x);
+    for (int i = 0; i < nums.size(); ++i) {
+        std::cout << nums[i] << std::endl;
     }
-
-
     return 0;
 }

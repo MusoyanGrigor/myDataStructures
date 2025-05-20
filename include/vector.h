@@ -124,18 +124,12 @@ namespace my {
             m_capacity = m_size;
         }
 
-        void push_back(const T& value) {
+        template <typename U>
+        void push_back(U&& value) {
             if (m_size == m_capacity) {
                 reserve(m_capacity * 2);
             }
-            m_buffer[m_size++] = value;
-        }
-
-        void push_back(T&& value) {
-            if (m_size == m_capacity) {
-                reserve(m_capacity * 2);
-            }
-            m_buffer[m_size++] = std::move(value);
+            m_buffer[m_size++] = std::forward<U>(value);
         }
 
         T pop_back() {
