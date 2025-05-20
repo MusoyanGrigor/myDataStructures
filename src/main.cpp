@@ -1,13 +1,19 @@
 #include "vector.h"
+#include "utils.h"
+
 
 int main() {
+    namespace umy = utils::my;
     my::vector<int> nums = {-1,2,1,-4};
     int x = 10;
     nums.push_back(3);
     nums.push_back(4);
     nums.push_back(x);
-    for (int i = 0; i < nums.size(); ++i) {
-        std::cout << nums[i] << std::endl;
+
+
+    my::vector<int> nums2 = umy::move(nums);
+    for (const int num : nums2) {
+        std::cout << num << std::endl;
     }
     return 0;
 }
