@@ -1,12 +1,12 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <iostream>
 #include <stdexcept>
 #include <initializer_list>
 #include <algorithm>
 #include <vector>
 #include "iterator.h"
+#include "utils.h"
 
 namespace my {
 
@@ -29,7 +29,7 @@ namespace my {
 
         void move(T* dest, T* src, const size_t size) {
             for (size_t i = 0; i < size; ++i) {
-                dest[i] = std::move(src[i]);
+                dest[i] = utils::my::move(src[i]);
             }
         }
     };
@@ -255,7 +255,7 @@ namespace my {
             }
 
             for (size_t i = m_size; i > index; --i) {
-                m_buffer[i] = std::move(m_buffer[i - 1]);
+                m_buffer[i] = utils::my::move(m_buffer[i - 1]);
             }
 
             m_buffer[index] = value;

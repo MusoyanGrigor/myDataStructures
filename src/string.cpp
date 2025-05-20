@@ -28,11 +28,9 @@ namespace my {
         utils::strcpy(m_data, other.m_data);
     }
 
-    string::string(string&& other) noexcept {
-        // move ctor
-        this->m_length = other.m_length;
-        this->m_data = other.m_data;
-
+    string::string(string&& other) noexcept
+        : m_data(other.m_data), m_length(other.m_length) {
+       // move ctor
         other.m_length = 0;
         other.m_data = nullptr;
     }
